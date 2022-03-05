@@ -1,6 +1,6 @@
 package pl.coderslab.entity;
 
-public class Book {
+public class Book implements Comparable<Book>{
     private static Long idIndex=0L;
     private Long id;
     private String isbn;
@@ -89,5 +89,11 @@ public class Book {
                 ", type='" + type + '\'' +
                 ", author='" + author + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Book book) {
+        return id>=book.id ? 1 : -1;
     }
 }
