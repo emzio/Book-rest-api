@@ -12,8 +12,4 @@ public class AppConfig implements WebMvcConfigurer {
 
 }
 
-//@Configuration
-//@EnableWebMvc
-//@ComponentScan(basePackages = "pl.coderslab")
-//public class AppConfig implements WebMvcConfigurer {
-//}
+

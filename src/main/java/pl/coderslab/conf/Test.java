@@ -1,7 +1,7 @@
 //package pl.coderslab.conf;
 //
 //import pl.coderslab.entity.Book;
-//import pl.coderslab.entity.MockBookService;
+//import pl.coderslab.service.MockBookService;
 //
 //import java.util.List;
 //
