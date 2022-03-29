@@ -1,12 +1,11 @@
 package pl.coderslab.service;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.entity.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -25,51 +24,60 @@ public class MockBookService implements BookService {
     }
 
     @Override
-    public List<Book> getAll() {
+    public List<Book> findAll() {
         return bookList;
     }
 
     @Override
-    public void add(Book book) {
+    public void save(Book book) {
         Book bookToAdd = new Book(book.getIsbn(), book.getTitle(), book.getPublisher(), book.getType(), book.getAuthor());
         bookList.add(bookToAdd);
     }
 
     @Override
-    public void remove(Long id) {
+    public void deleteById(Long id) {
         bookList = bookList.stream().filter(book -> book.getId() != id)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Book getById(Long id) {
-//        Book result = bookList.stream().filter(book -> book.getId() == id)
-//                .findAny().orElseGet(() -> null);
+    public Optional<Book> findById(Long id) {
 
-        Book result = bookList.stream().filter(book -> book.getId().equals(id)).findAny().orElseThrow(() -> {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "BARDZO CIEKAWE ŚĆŃŻŹ entity not found"
-            );
-        });
-        return result;
+        Optional<Book> optionalBook = bookList.stream()
+                .filter(book -> book.getId().equals(id))
+                .findAny();
+
+        return optionalBook;
+//        Book result = bookList.stream().filter(book -> book.getId().equals(id)).findAny().orElseThrow(() -> {
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND, "BARDZO CIEKAWE ŚĆŃŻŹ entity not found"
+//            );
+//        });
+//        return result;
     }
 
     @Override
     public void update(Book book) {
         Long id = book.getId();
-        Book bookToAdd = getById(book.getId());
 
-        this.remove(id);
+        System.out.println(bookList.indexOf(book));
+        if (bookList.get(Math.toIntExact(id))!=null){
+            Book bookToAdd = findById(book.getId()).get();
+            this.deleteById(id);
 
-        bookToAdd.setIsbn(book.getIsbn());
-        bookToAdd.setTitle(book.getTitle());
-        bookToAdd.setPublisher(book.getPublisher());
-        bookToAdd.setType(book.getType());
-        bookToAdd.setAuthor(book.getAuthor());
-        bookToAdd.setId(id);
-        bookList.add(bookToAdd);
-        bookList = bookList.stream().sorted((Book book1, Book t1) -> {
-            return book1.getId().compareTo(t1.getId());
-        }).collect(Collectors.toList());
+            bookToAdd.setIsbn(book.getIsbn());
+            bookToAdd.setTitle(book.getTitle());
+            bookToAdd.setPublisher(book.getPublisher());
+            bookToAdd.setType(book.getType());
+            bookToAdd.setAuthor(book.getAuthor());
+            bookToAdd.setId(id);
+            bookList.add(bookToAdd);
+            bookList = bookList.stream().sorted((Book book1, Book t1) -> {
+                return book1.getId().compareTo(t1.getId());
+            }).collect(Collectors.toList());
+        }
+
+
+
     }
 }

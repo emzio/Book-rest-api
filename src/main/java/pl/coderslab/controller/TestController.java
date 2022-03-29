@@ -20,6 +20,10 @@ private final TestRepository testRepository;
         Test test = new Test();
         test.setContent("content1");
         testRepository.save(test);
+//        testRepository.findAll();
+//        testRepository.delete(test);
+//        testRepository.findById(test.getId());
+//        testRepository.deleteById(test.getId());
         return testRepository.findAll().toString();
     }
 }

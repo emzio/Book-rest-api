@@ -2,7 +2,9 @@ package pl.coderslab.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.entity.Book;
 import pl.coderslab.service.BookService;
 
@@ -21,8 +23,6 @@ public class BookController {
     private static final Logger logger
         = LoggerFactory.getLogger(SampleLoggerController.class);
 
-//    BookService service = new SecondMockBookService();
-
     @RequestMapping("/helloBook")
     public Book helloBook(){
         Book book = new Book("9788324631766", "Thinking in Java",
@@ -34,19 +34,22 @@ public class BookController {
     @GetMapping("")
     @ResponseBody
     public List<Book> get(){
-        return service.getAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     public Book findById(@PathVariable Long id){
-        logger.info("<<<<<<<<<<<<<<<<< id : " + id + " " + service.getById(id));
-        return service.getById(id);
+        return service.findById(id).orElseThrow(() -> {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "BARDZO CIEKAWY WYJĄTEK>>>>>>>>>>>>>>>>>>> entity not found"
+            );
+        });
     }
 
     @PostMapping()
     public void addBook(@RequestBody Book book){
-        service.add(book);
+        service.save(book);
     }
     @PutMapping()
     public void updateBook(@RequestBody Book book){
@@ -55,7 +58,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id){
-        service.remove(id);
+        service.deleteById(id);
     }
 }
 
