@@ -1,7 +1,14 @@
 package pl.coderslab.entity;
 
+import javax.persistence.*;
+
+@Entity
 public class Book implements Comparable<Book>{
+    @Transient
     private static Long idIndex=0L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String isbn;
     private String title;

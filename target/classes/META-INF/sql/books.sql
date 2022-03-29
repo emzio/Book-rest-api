@@ -31,6 +31,10 @@
 -- # INSERT INTO bookstore.books_authors (Book_id, authors_id) VALUES (3, 3);
 -- # INSERT INTO bookstore.books_authors (Book_id, authors_id) VALUES (5, 4);
 
+INSERT INTO book_workshop.Book (author, isbn, publisher, title, type) VALUES ('Karol May', '1221', 'ZyskiSka', 'title1', 'adventure');
+INSERT INTO book_workshop.Book (author, isbn, publisher, title, type) VALUES ('Anne Proloux', '4567', 'PWN', 'Pocztówki', 'literatura piękna');
+INSERT INTO book_workshop.Book (author, isbn, publisher, title, type) VALUES ('Issac Singer', '234', 'SK', 'Warszawa', 'dramat');
+
 INSERT INTO book_workshop.Test (content) VALUES ('testContent');
 INSERT INTO book_workshop.Test (content) VALUES ('anotherTest');
 INSERT INTO book_workshop.Test (content) VALUES ('lastContent');

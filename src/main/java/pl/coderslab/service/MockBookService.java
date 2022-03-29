@@ -48,12 +48,6 @@ public class MockBookService implements BookService {
                 .findAny();
 
         return optionalBook;
-//        Book result = bookList.stream().filter(book -> book.getId().equals(id)).findAny().orElseThrow(() -> {
-//            throw new ResponseStatusException(
-//                    HttpStatus.NOT_FOUND, "BARDZO CIEKAWE ŚĆŃŻŹ entity not found"
-//            );
-//        });
-//        return result;
     }
 
     @Override
