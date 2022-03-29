@@ -6,12 +6,14 @@ public class Book implements Comparable<Book>{
     private String isbn;
     private String title;
     private String publisher;
+    private String type;
+    private String author;
+
 
     public Book() {
     }
 
-    private String type;
-    private String author;
+
 
     public Book(String isbn, String title, String publisher, String type, String author) {
         idIndex++;
